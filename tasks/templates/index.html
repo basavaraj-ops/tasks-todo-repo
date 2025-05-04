@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <link rel="stylesheet" href="{% static '/style.css' %}">
+    <script src="{% static 'script.js' %}"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Task Management</h1>
+
+        <!-- Task Form Section -->
+        <div id="task-form-container">
+            <h2>Add New Task</h2>
+            <form id="task-form">
+                <label for="title">Title:</label>
+                <input type="text" id="title" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description"></textarea>
+
+                <label for="date">Due Date:</label>
+                <input type="date" id="date" required>
+
+                <button type="submit">Add Task</button>
+            </form>
+        </div>
+
+        <!-- Search and Sort Section -->
+        <div id="search-sort-container">
+            <h2>Search and Sort Tasks</h2>
+            <form id="search-form">
+                <!-- Search by Title -->
+                <label for="search-title">Search by Title:</label>
+                <input type="text" id="search-title" placeholder="Search by title" />
+
+                <!-- Search by Date -->
+                <label for="search-date">Search by Date:</label>
+                <input type="date" id="search-date" />
+
+                <!-- Sort by Date -->
+                <label for="sort-by-date">Sort by Date:</label>
+                <select id="sort-by-date">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Task List Section -->
+        <div id="task-list-container">
+            <h2>Tasks</h2>
+            <ul id="task-list">
+                <!-- Tasks will be loaded here by JavaScript -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="{% static 'tasks/js/script.js' %}"></script>
+</body>
+</html>

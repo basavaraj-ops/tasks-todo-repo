@@ -1,24 +1,24 @@
 FROM python:3.12-slim-bookworm
 
-# Make /app as a working directory in the container
+# Set working directory
 WORKDIR /app
 
-# Copy requirements from host, to docker container in /app
+# Copy requirements file and install dependencies
 COPY ./requirements.txt /app/
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Install the dependencies
-RUN pip3 install -r requirements.txt
-
-# Copy everything from ./src directory to /app in the container
+# Copy the rest of the project files
 COPY . /app/
 
-ADD docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod a+x /docker-entrypoint.sh
+# Copy the entrypoint script and ensure it has execute permissions
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
+# Set the entrypoint
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-# Expose the port 80 in which our application runs
+# Expose port
 EXPOSE 80
 
-# Run the application in the port 80
-CMD ["uvicorn", "master_server.asgi:application", "--host", "0.0.0.0", "--port", "80", "--workers", "3", "--log-config", "log_config.json","--timeout-keep-alive","300", "--lifespan", "off"]
+# Command to run the application
+CMD ["uvicorn", "master_server.asgi:application", "--host", "0.0.0.0", "--port", "80", "--workers", "3", "--log-config", "log_config.json", "--timeout-keep-alive", "300", "--lifespan", "off"]
